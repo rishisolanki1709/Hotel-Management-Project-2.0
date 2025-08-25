@@ -1,0 +1,93 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Segoe UI', sans-serif;
+	background-color: #f4f6f8;
+	display: flex;
+}
+
+.content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* General Table Styling */
+#table-box {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 20px 0;
+	font-size: 16px;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	text-align: left;
+	background: #ffffff;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Header */
+thead tr {
+	background: #4a90e2;
+	/* nice blue shade */
+	color: #ffffff;
+	text-align: left;
+	font-weight: 600;
+}
+
+th,
+td {
+	padding: 14px 18px;
+}
+
+/* Alternate Row Color */
+tbody tr:nth-child(even) {
+	background: #f7f9fc;
+}
+
+/* Hover Effect */
+tbody tr:hover {
+	background: #e6f0ff;
+	transition: background 0.3s ease;
+}
+
+/* Border bottom for rows */
+tbody tr {
+	border-bottom: 1px solid #e0e0e0;
+}
+
+/* Last row without border */
+tbody tr:last-child {
+	border-bottom: none;
+}
+
+button {
+	padding: 10px;
+	margin: 5px 0;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+	background-color: #1abc9c;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #16a085;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+	table {
+		font-size: 14px;
+	}
+
+	th,
+	td {
+		padding: 10px;
+	}
+}

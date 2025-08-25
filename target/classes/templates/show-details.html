@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Confirm Booking</title>
+	<link rel="stylesheet" href="/css/show-details.css">
+	<link rel="icon" th:href="@{/images/logo.png}">
+</head>
+
+<body>
+	<div class="container">
+		<h1>Booking Review & Confirmation</h1>
+
+		<!-- SUMMARY CARDS -->
+		<div class="grid two">
+			<section class="card">
+				<div class="content">
+					<h2>Customer Details</h2>
+					<!--
+						<div class="row">
+							<div class="label">Customer ID</div>
+							<div th:text="${session.customer.customerId}">101</div>
+						</div>
+					-->
+					<div class="row">
+						<div class="label">Name</div>
+						<div th:text="${session.customerName}">John Doe</div>
+					</div>
+					<div class="row">
+						<div class="label">Email</div>
+						<div th:text="${session.customerEmail}">john@example.com</div>
+					</div>
+					<div class="row">
+						<div class="label">Phone</div>
+						<div th:text="${session.customerPhone}">9999999999</div>
+					</div>
+					<div class="row">
+						<div class="label">Adhar</div>
+						<div th:text="${session.customerAdhar}">123123123123</div>
+					</div>
+					<div class="row">
+						<div class="label">gender</div>
+						<div th:text="${session.customerGender}">male/female</div>
+					</div>
+					<div class="row">
+						<div class="label">Address</div>
+						<div th:text="${session.customerAddress}">58 example Colony India</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="card">
+				<div class="content">
+					<h2>Room Details</h2>
+					<!--
+					<div class="row">
+						<div class="label">Room ID</div>
+						<div th:text="${session.room.roomId}">305</div>
+					</div>
+						-->
+					<div class="row">
+						<div class="label">Room No.</div>
+						<div th:text="${session.room.room_Id}">A-305</div>
+					</div>
+					<div class="row">
+						<div class="label">Type</div>
+						<div><span class="pill" th:text="${session.room.bedSize}"></span></div>
+					</div>
+					<div class="row">
+						<div class="label">Price/Night</div>
+						<div th:text="${#numbers.formatDecimal(session.room.price, 0, 'COMMA', 0, 'POINT')}">
+							3000</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<!-- BOOKING FORM -->
+		<form class="card form" th:action="@{/NewRegistrationContoller/Confirm_New_Registration}" method="post">
+			<div class="grid two">
+				<div>
+					<label for="checkIn">Check-in Date</label>
+					<input id="checkIn" name="checkInDate" type="date" required />
+					<div class="hint">Must be today or later.</div>
+				</div>
+				<div>
+					<label for="checkOut">Check-out Date</label>
+					<input id="checkOut" name="checkOutDate" type="date" required />
+					<div class="hint">Must be after check-in.</div>
+				</div>
+			</div>
+
+			<div style="margin-top:14px">
+				<label for="bookingMode">Booking Mode</label>
+				<select id="bookingMode" name="bookingMode" required>
+					<option value="ONLINE">ONLINE</option>
+					<!--th:if="${session.employeeName != null}" -->
+					<option value="OFFLINE">OFFLINE</option>
+				</select>
+			</div>
+
+
+
+			<div id="calcBox" class="card" style="margin-top:16px">
+				<div class="content">
+					<div class="row">
+						<div class="label">Nights</div>
+						<div id="nights">0</div>
+					</div>
+					<div class="row">
+						<!-- Inject a data element with price from server to allow client-side total calc-->
+						<div id="roomPriceData" th:attr="data-price=${session.room.price}" style="display:none"></div>
+
+						<div class="label">Estimated Total</div>
+						<div class="total" id="totalDisplay">0</div>
+						<input type="hidden" id="total" name="total" value="0">
+					</div>
+				</div>
+				<!--Hidden by default -->
+				<div id="offlineBox"
+					style="display:none; margin-top:12px; padding:12px; border:1px solid #ccc; border-radius:8px;">
+					<label for="paidAmount">Amount Paid:</label>
+					<input type="number" id="paidAmount" name="paidAmount" placeholder="Enter paid amount" />
+
+					<p>Pending Amount: <span id="pendingDisplay">0</span></p>
+					<input type="hidden" id="pendingAmount" name="pendingAmount" value="0">
+				</div>
+			</div>
+
+			<!-- Hidden fields to carry IDs
+			<input type="hidden" name="customerId" th:value="${session.customer.customerId}" />
+			<input type="hidden" name="roomId" th:value="${session.room.roomId}" />
+			-->
+			<!-- CSRF (Thymeleaf/Spring Security) 
+			<input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+			-->
+			<div class="actions">
+				<button type="button" class="btn btn-ghost" onclick="history.back()">Back</button>
+				<button type="submit" class="btn btn-primary">Confirm Booking</button>
+			</div>
+		</form>
+	</div>
+
+
+</body>
+<script src="/javascript/show-details.js"></script>
+
+</html>

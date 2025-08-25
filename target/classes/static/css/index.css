@@ -1,0 +1,134 @@
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background: #98cfff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+}
+
+.container {
+	background: #34495e;
+	padding: 40px;
+	border-radius: 20px;
+	box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	width: 400px;
+}
+
+h2 {
+	margin-bottom: 25px;
+	color: #ffffff;
+	font-weight: 600;
+}
+
+.roles {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.role-card {
+	overflow: hidden;
+	border-radius: 12px;
+	border: 1px solid #e0e0e0;
+	background: #fafafa;
+	color: #34495e;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.role-header {
+	display: flex;
+	align-items: center;
+	padding: 15px 20px;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.role-header i {
+	font-size: 22px;
+	margin-right: 12px;
+	color: #5c6bc0;
+}
+
+.role-card:hover .role-header {
+	background: #5186ef;
+	color: white;
+}
+
+.role-card:hover .role-header i {
+	color: white;
+}
+
+/* Hidden content */
+.role-content {
+	max-height: 0;
+	opacity: 0;
+	overflow: hidden;
+	transition: all 0.4s ease;
+	background: #fff;
+	padding: 0 20px;
+}
+
+.role-card.active .role-content {
+	max-height: 200px;
+	opacity: 1;
+	padding: 15px 20px;
+}
+
+.role-content input {
+	width: 92%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	font-size: 14px;
+}
+
+.role-content button {
+	width: 100%;
+	padding: 10px;
+	background: #5186ef;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.role-content button:hover {
+	background: #3c6ed0;
+}
+
+/* Customer link */
+.role-link {
+	display: flex;
+	align-items: center;
+	padding: 15px 20px;
+	font-size: 16px;
+	font-weight: 500;
+	border-radius: 12px;
+	border: 1px solid #e0e0e0;
+	background: #fafafa;
+	color: #34495e;
+	text-decoration: none;
+	transition: 0.3s;
+}
+
+.role-link i {
+	font-size: 22px;
+	margin-right: 12px;
+	color: #5c6bc0;
+}
+
+.role-link:hover {
+	background: #5186ef;
+	color: white;
+	transform: translateY(-2px);
+}
+
+.role-link:hover i {
+	color: white;
+}
