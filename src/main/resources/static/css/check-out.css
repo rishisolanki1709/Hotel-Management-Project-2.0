@@ -1,0 +1,48 @@
+body {
+	font-family: Arial, sans-serif;
+	background: #f8f9fa;
+	margin: 0;
+	padding: 20px;
+}
+
+.checkout-container {
+	max-width: 800px;
+	margin: auto;
+	background: #fff;
+	padding: 20px;
+	border-radius: 12px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.section {
+	margin-bottom: 20px;
+}
+
+.section h3 {
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+}
+
+.detail-item {
+	margin: 6px 0;
+}
+
+.btn {
+	padding: 10px 20px;
+	border: none;
+	background: #007bff;
+	color: white;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.btn:disabled {
+	background: #aaa;
+	cursor: not-allowed;
+}

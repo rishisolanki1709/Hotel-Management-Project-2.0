@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout Page</title>
+	<link rel="stylesheet" href="/css/check-out.css">
+	<link rel="icon" th:href="@{/images/logo.png}">
+</head>
+<body>
+
+<div class="checkout-container">
+    <h2>Checkout</h2>
+
+    <!-- Customer Details -->
+    <div class="section">
+        <h3>Customer Details</h3>
+        <p class="detail-item"><b>Name:</b> <span th:text="${customer.name}"></span></p>
+        <p class="detail-item"><b>Email:</b> <span th:text="${customer.email}"></span></p>
+        <p class="detail-item"><b>Phone:</b> <span th:text="${customer.phone}"></span></p>
+        <p class="detail-item"><b>Adhar:</b> <span th:text="${customer.adhar}"></span></p>
+        <p class="detail-item"><b>Gender:</b> <span th:text="${customer.gender}"></span></p>
+        <p class="detail-item"><b>Address:</b> <span th:text="${customer.address}"></span></p>
+    </div>
+
+    <!-- Room Details -->
+    <div class="section">
+        <h3>Room Details</h3>
+        <p class="detail-item"><b>Room Number:</b> <span th:text="${room.room_Id}"></span></p>
+		<p class="detail-item"><b>Bed Size</b> <span th:text="${room.bedSize}"></span></p>
+        <p class="detail-item"><b>Price:</b> ₹<span th:text="${room.price}"></span></p>
+    </div>
+
+    <!-- Booking Details -->
+    <div class="section">
+        <h3>Booking Details</h3>
+        <p class="detail-item"><b>Booking ID:</b> <span th:text="${bookingDetails.booking_Id}"></span></p>
+        <p class="detail-item"><b>Booking Date:</b> <span th:text="${bookingDetails.bookingDate}"></span></p>
+        <p class="detail-item"><b>Check-In Date:</b> <span th:text="${bookingDetails.checkInDate}"></span></p>
+        <p class="detail-item"><b>Check-Out Date:</b> <span th:text="${bookingDetails.checkOutDate}"></span></p>
+        <p class="detail-item"><b>Total Amount:</b> ₹<span id="totalAmount" th:text="${bookingDetails.totalAmount}"></span></p>
+        <p class="detail-item"><b>Paid Amount:</b> ₹<span id="paidAmount" th:text="${bookingDetails.paidAmount}"></span></p>
+        <p class="detail-item"><b>Pending Amount:</b> ₹<span id="pendingAmount" th:text="${bookingDetails.pendingAmount}"></span></p>
+    </div>
+    <!-- Checkout Form -->
+    <form id="checkoutForm" th:action="@{/employee/Check_Out_Confirm}" method="post">
+        <input type="number" style="display: none;" name="bookingId" th:value="${bookingDetails.booking_Id}" />
+        <button type="submit" class="btn">Confirm Checkout</button>
+    </form>
+	<br>
+	<br>
+	<button type="button" id="clear-pending" class="btn btn-ghost">Clear Pending's</button>
+	<br>
+	<br>
+	<button type="button" class="btn btn-ghost" onclick="history.back()">Back</button>
+</div>
+
+<script src="/javascript/check-out.js"></script>
+
+</body>
+<script>
+	document.getElementById("clear-pending").addEventListener("click",function(){
+		let pendingAmount = parseInt(document.getElementById("pendingAmount").innerText);
+		let paidAmount = parseInt(document.getElementById("paidAmount").innerText);
+		paidAmount = paidAmount + pendingAmount;
+		document.getElementById("paidAmount").innerText = paidAmount;
+		document.getElementById("pendingAmount").innerText = 0;
+	})
+</script>
+</html>

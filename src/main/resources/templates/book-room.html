@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" />
+	<title>Book-Room</title>
+	<!-- Keep the CSS in a separate file -->
+	<link rel="icon" th:href="@{/images/logo.png}">
+	<link rel="stylesheet" href="/css/book-room.css">
+</head>
+
+<body class="content">
+	<section id="showRooms" class="panel">
+		<h2>All Rooms</h2>
+		<div>Search</div>
+		<table id="table-box">
+			<thead>
+				<tr>
+					<th>Room Number</th>
+					<th>Price</th>
+					<th>Room Type</th>
+					<th>Availability</th>
+					<th>Book Room</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="room: ${rooms}" th:if="${room.getAvailability().trim() != 'Booked'}">
+					<td th:text="${room.getRoom_Id()}"></td>
+					<td th:text="${room.getPrice()}"></td>
+					<td th:text="${room.getBedSize()}"></td>
+					<td th:text="${room.getAvailability()}"></td>
+					<td>
+						<form th:action="@{/NewRegistrationContoller/room-booking-page/{id}(id=${room.getRoom_Id})}" method="post">
+							<button class="btn btn-warning btn-sm">Book Room</button>
+						</form>
+					</td>
+				</tr>
+		</table>
+		<button type="button" class="btn btn-ghost" onclick="history.back()">Back</button>
+	</section>
+</body>
+
+</html>

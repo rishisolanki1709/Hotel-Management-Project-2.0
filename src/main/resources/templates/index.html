@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Velvet Vista</title>
+	<link rel="stylesheet" href="/css/index.css">
+	<link rel="icon" th:href="@{/images/logo.png}">
+</head>
+
+<body>
+	<div class="container">
+		<h2>Login As Your Role</h2>
+		<div class="roles">
+
+			<h3 th:if="${msg != null}" >
+				<span style="color: red;" th:text="${msg}"></span>
+			</h3>
+			
+			<!-- Admin -->
+			<div class="role-card">
+				<div class="role-header" onclick="toggleRole(this)">
+					<i class="lucide-shield"></i> Admin Login
+				</div>
+				<div class="role-content" onclick="event.stopPropagation();">
+					<form action="admin/home" method="post">
+						<input type="text" name="admin-email" placeholder="Email">
+						<input type="password" name="admin-password" placeholder="Password">
+						<input type="submit" value="Login">
+					</form>
+				</div>
+			</div>
+
+			<!-- Employee -->
+			<div class="role-card">
+				<div class="role-header" onclick="toggleRole(this)">
+					<i class="lucide-briefcase"></i> Employee Login
+				</div>
+				<div class="role-content" onclick="event.stopPropagation();">
+					<form action="employee/home" method="post">
+						<input type="email" name="employee-email" placeholder="Email">
+						<input type="password" name="employee-password" placeholder="Password">
+						<input type="submit" value="Login">
+					</form>
+				</div>
+			</div>
+
+			<!-- Customer -->
+			<a href="customer/home" class="role-link">
+				<i class="lucide-user"></i> Customer
+			</a>
+
+		</div>
+	</div>
+</body>
+<script src="/javascript/index.js"></script>
+
+</html>

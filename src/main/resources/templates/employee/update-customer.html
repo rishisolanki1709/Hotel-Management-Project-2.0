@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" />
+	<title>Update-Customer</title>
+	<!-- Keep the CSS in a separate file -->
+	<link rel="icon" th:href="@{/images/logo.png}">
+	<link rel="stylesheet" href="/css/update.css">
+</head>
+
+<body>
+	<main class="container">
+		<!--Employee can Update Customer-->
+		<div th:if="${customer != null}">
+			<form class="form-card" th:action="@{/employee/Update_Customer_Detail}" method="post">
+				<!-- If you have an ID, keep it hidden for updates -->
+				
+				<h1 class="title">Update Customer</h1>
+				<p class="subtitle">Edit the customer details and click Update to save.</p>
+
+				Id : <input name="customerId" type="number" th:value="${customer.getCustomer_Id()}" readonly />
+				<div class="grid">
+					<div class="form-group">
+						<label for="name">Full Name</label>
+						<input type="text" id="name" name="name" placeholder="e.g., Anil Sharma"
+							th:value="${customer.getName()}" required />
+					</div>
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input type="email" id="email" name="email" placeholder="name@company.com"
+							th:value="${customer.getEmail()}" required />
+					</div>
+					<div class="form-group">
+						<label for="adhar">Adhar</label>
+						<input type="number" id="adhar" name="adhar" placeholder="123123123123"
+							th:value="${customer.getAdhar()}" />
+						<small class="hint">Leave blank to keep existing password.</small>
+					</div>
+					<div class="form-group">
+						<label for="phone">Phone</label>
+						<input type="tel" id="phone" name="phone" placeholder="10-digit number" pattern="[0-9]{10}"
+							th:value="${customer.getPhone()}" required />
+					</div>
+					<div class="form-group">
+						<label>Gender</label>
+						<input name="gender" type="text" th:value="${customer.getGender()}" required />
+					</div>
+					<div class="form-group">
+						<label for="address">Job Role</label>
+						<input id="address" type="text" name="address" th:value="${customer.getAddress()}" required>
+					</div>
+					
+				</div>
+				<div class="actions">
+					<button type="submit" class="btn btn-primary">Update</button>
+				</div>
+			</form>
+		</div>
+	</main>
+</body>
+
+</html>

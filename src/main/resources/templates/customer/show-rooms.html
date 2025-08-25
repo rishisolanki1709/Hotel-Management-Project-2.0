@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" />
+	<title>Show-Rooms</title>
+	<!-- Keep the CSS in a separate file -->
+	<link rel="stylesheet" href="/css/book-room.css">
+	<link rel="icon" th:href="@{/images/logo.png}">
+</head>
+
+<body class="content">
+	<section id="showRooms" class="panel">
+		<h2>All Rooms</h2>
+		<table id="table-box">
+			<thead>
+				<tr>
+					<th>Room Number</th>
+					<th>Price</th>
+					<th>Bed Size</th>
+					<th>Availability</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="room: ${rooms}" th:if="${room.getAvailability().trim() != 'Booked'}">
+					<td th:text="${room.getRoom_Id()}"></td>
+					<td th:text="${room.getPrice()}">$</td>
+					<td th:text="${room.getBedSize()}"></td>
+					<td th:text="${room.getAvailability()}"></td>
+				</tr>
+		</table>
+		<button type="button" class="btn btn-ghost" onclick="history.back()">Back</button>
+	</section>
+</body>
+
+</html>

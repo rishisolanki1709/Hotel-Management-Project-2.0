@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Employee Dashboard - Velvet Vista Hotel</title>
+	<link rel="stylesheet" href="/css/employee-home.css">
+	<link rel="icon" th:href="@{/images/logo.png}">
+</head>
+
+<body>
+
+	<div class="employee-container">
+		<!-- Sidebar -->
+		<aside class="sidebar">
+			<h2>Welcome <br><span th:text="${session.employeeName}"></span> </h2>
+			<nav>
+				<button onclick="showSection('newCustomer')">New Customer</button>
+				<button onclick="showSection('showBookingDetails')">Show All Booking Details</button>
+				<button onclick="showSection('allCustomers')">All Customer Information</button>
+				<button onclick="showSection('allEmployees')">All Employee Information</button>
+				<button onclick="showSection('checkout')">Check-out</button>
+				<button onclick="showSection('rooms')">Room's</button>
+				<button class="logout-btn">Logout</button>
+			</nav>
+		</aside>
+
+		<!-- Main Content -->
+		<main class="content">
+
+			<h3 th:if="${msg != null}">
+				Message : <span style="color: red;" th:text="${msg}"></span>
+			</h3>
+
+			<!-- New Customer -->
+			<section id="newCustomer" class="panel active">
+				<h2>New Customer Form</h2>
+				<form th:action="@{/NewRegistrationContoller/Register-New-Customer}" method="post">
+					<input type="text" name="name" placeholder="Name" required>
+					<input type="email" name="email" placeholder="Email" required>
+					<input type="number" name="adhar" placeholder="Adhar" required>
+					<input type="number" name="phone" placeholder="Phone" required>
+					<select name="gender" id="gender" required>
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+						<option value="Other">Other</option>
+					</select>
+					<input type="text" name="address" placeholder="Address" required>
+					<button type="submit">Next</button>
+				</form>
+			</section>
+
+			<section id="showBookingDetails" class="panel">
+				<h2>All Booking Details</h2><button id="refresh" type="button">Refresh</button>
+				<div>
+					<form id="bookingSearchForm">
+						<input type="text" id="bookingIdInput" placeholder="Enter Booking ID" />
+						<button type="submit">Search</button>
+					</form>
+				</div>
+
+				<table id="table-box">
+					<thead>
+						<tr>
+							<th>Booking ID</th>
+							<th>Room Number</th>
+							<th>Customer ID</th>
+							<th>Booking Mode</th>
+							<th>Booking Date</th>
+							<th>Check In Date</th>
+							<th>Check Out Date</th>
+							<th>Paid Amount</th>
+							<th>Pending Amount</th>
+							<th>Total Amount</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="bookingDetail: ${bookingDetails}">
+							<td class="bookingId" th:text="${bookingDetail.getBooking_Id()}"></td>
+							<td th:text="${bookingDetail.getRoom().getRoom_Id()}"></td>
+							<td th:text="${bookingDetail.getCustomer().getCustomer_Id()}"></td>
+							<td th:text="${bookingDetail.getBookingMode()}"></td>
+							<td th:text="${bookingDetail.getBookingDate()}"></td>
+							<td th:text="${bookingDetail.getCheckInDate()}"></td>
+							<td th:text="${bookingDetail.getCheckOutDate()}"></td>
+							<td th:text="${bookingDetail.getPaidAmount()}"></td>
+							<td th:text="${bookingDetail.getPendingAmount()}"></td>
+							<td th:text="${bookingDetail.getTotalAmount()}"></td>
+						</tr>
+				</table>
+			</section>
+
+
+			<!-- All Customers -->
+			<section id="allCustomers" class="panel">
+				<h2>All Customers Info</h2>
+				<table id="table-box">
+					<thead>
+						<tr>
+							<th>Cutomer Id</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Mobile</th>
+							<th>Adhar</th>
+							<th>Gender</th>
+							<th>Address</th>
+							<th>Update</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="customer: ${customers}">
+							<td th:text="${customer.getCustomer_Id()}"></td>
+							<td th:text="${customer.getName()}"></td>
+							<td th:text="${customer.getEmail()}"></td>
+							<td th:text="${customer.getPhone()}"></td>
+							<td th:text="${customer.getAdhar()}"></td>
+							<td th:text="${customer.getGender()}"></td>
+							<td th:text="${customer.getAddress()}"></td>
+							<td>
+								<!-- Update button (redirects to update form) -->
+								<form th:action="@{/employee/update-customer-page/{id}(id=${customer.getCustomer_Id})}"
+									method="post">
+									<button class="btn btn-warning btn-sm">Update</button>
+								</form>
+							</td>
+						</tr>
+				</table>
+			</section>
+
+			<!-- All Employees -->
+			<section id="allEmployees" class="panel">
+				<h2>All Employees</h2>
+				<table id="table-box">
+					<thead>
+						<tr>
+							<th>Employee Id</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Mobile</th>
+							<th>Job-Role</th>
+							<th>Gender</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="employee: ${employees}">
+							<td th:text="${employee.getEmployee_Id()}"></td>
+							<td th:text="${employee.getName()}"></td>
+							<td th:text="${employee.getEmail()}"></td>
+							<td th:text="${employee.getPhone()}"></td>
+							<td th:text="${employee.getJobRole()}"></td>
+							<td th:text="${employee.getGender()}"></td>
+						</tr>
+				</table>
+			</section>
+
+			<!-- Check-out -->
+			<section id="checkout" class="panel">
+				<h2>Check-out</h2>
+				<form th:action="@{/employee/Check_Out}" method="post">
+					<input type="number" placeholder="Booking ID" name="booking-id" required>
+					<button type="submit">Process Check-out</button>
+				</form>
+			</section>
+
+			<!-- Rooms -->
+			<section id="rooms" class="panel">
+				<h2>All Rooms</h2>
+				<table id="table-box">
+					<thead>
+						<tr>
+							<th>Room Number</th>
+							<th>Price</th>
+							<th>Room Type</th>
+							<th>Availability</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="room: ${rooms}">
+							<td th:text="${room.getRoom_Id()}"></td>
+							<td th:text="${room.getPrice()}"></td>
+							<td th:text="${room.getBedSize()}"></td>
+							<td th:text="${room.getAvailability()}"></td>
+						</tr>
+				</table>
+			</section>
+		</main>
+	</div>
+
+	<script src="/javascript/employee-home.js"></script>
+</body>
+<script>
+	let bookingIds = document.getElementsByClassName("bookingId");
+	document.getElementById("bookingSearchForm").addEventListener('submit', function (e) {
+		e.preventDefault(); // prevent form reload
+		hideAllTableRow();
+		let input = document.getElementById("bookingIdInput").value.trim();
+		Array.from(bookingIds).forEach(function (bookingId) {
+			if (bookingId.textContent === input) {
+				bookingId.parentElement.style.display = "table-row";
+			}
+
+		});
+	});
+	function hideAllTableRow() {
+		Array.from(bookingIds).forEach(function (bookingId) {
+			bookingId.parentElement.style.display = "none";
+		});
+	}
+	document.getElementById("refresh").addEventListener("click", function () {
+		Array.from(bookingIds).forEach(function (bookingId) {
+			bookingId.parentElement.style.display = "table-row";
+		});
+	})
+</script>
+
+</html>
